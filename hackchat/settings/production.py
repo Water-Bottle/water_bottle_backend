@@ -77,8 +77,10 @@ WSGI_APPLICATION = 'hackchat.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'hackchat.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'waterbottle',
+        'USER': 'root',
+        'PASSWORD': 'sqlsql',
     }
 }
 
@@ -115,8 +117,71 @@ USE_L10N = True
 
 USE_TZ = True
 
+# ***** LOGGING CONFIGURATION
+
+# See: https://docs.djangoproject.com/en/dev/topics/logging/#filters
+L_FILTERS = {
+    'require_debug_false': {
+        '()': 'django.utils.log.RequireDebugFalse'
+    },
+}
+
+# See: https://docs.djangoproject.com/en/dev/topics/logging/#formatters
+L_FORMATTERS = {
+    'all_details': {
+        'format': '%(asctime)s %(levelname)s %(process)d|%(thread)d '
+                  '%(name)s.%(funcName)s():%(lineno)d %(message)s'
+    }
+}
+
+# See: https://docs.djangoproject.com/en/dev/topics/logging/#handlers
+L_HANDLERS = {
+    'default_handler': {
+        # file-based
+        'level': 'INFO',
+        'formatter': 'all_details',
+        'class': 'logging.FileHandler',
+        'filename': '/var/log/waterbottle/backend.log',
+    },
+}
+
+L_ACTIVE_HANDLERS = [
+    'default_handler', 'stats_handler',
+]
+
+# See: https://docs.djangoproject.com/en/dev/topics/logging/#loggers
+# The loggers have default level set at DEBUG on all environments. This will
+# get filtered out at the handler level.
+L_LOGGERS = {
+    'Events': {
+        'handlers': L_ACTIVE_HANDLERS,
+        'level': 'DEBUG',
+        'propagate': True,
+    },
+    'hackchat': {
+        'handlers': L_ACTIVE_HANDLERS,
+        'level': 'DEBUG',
+        'propagate': True,
+    },
+}
+
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#logging
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': L_FORMATTERS,
+    'filters': L_FILTERS,
+    'handlers': L_HANDLERS,
+    'loggers': L_LOGGERS,
+}
+# ***** END LOGGING CONFIGURATION
+
+
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATIC_ROOT = '/srv/static/'
