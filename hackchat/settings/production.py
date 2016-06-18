@@ -146,7 +146,7 @@ L_HANDLERS = {
 }
 
 L_ACTIVE_HANDLERS = [
-    'default_handler', 'stats_handler',
+    'default_handler',
 ]
 
 # See: https://docs.djangoproject.com/en/dev/topics/logging/#loggers
