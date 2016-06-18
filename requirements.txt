@@ -1,2 +1,4 @@
 Django==1.9
+MySQL-python==1.2.5
 slugify==0.0.1
+wheel==0.24.0
