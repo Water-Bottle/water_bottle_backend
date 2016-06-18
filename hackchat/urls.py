@@ -16,7 +16,9 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from Events import views as e_views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^time/$', e_views.server_time, name='test_servertime'),
 ]
