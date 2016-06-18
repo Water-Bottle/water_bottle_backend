@@ -17,8 +17,13 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from Events import views as e_views
+from django.conf.urls import include
+from baggage import urls as baggage_urls
+from box import urls as box_urls
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^time/$', e_views.server_time, name='test_servertime'),
+    url(r'^baggage/', include(baggage_urls)),
+    url(r'^box/', include(box_urls)),
 ]
