@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Events',
+    'rest_framework',
+    'baggage.apps.BaggageConfig',
 ]
 
 MIDDLEWARE_CLASSES = [
